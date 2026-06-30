@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Kiran!</title>
-    <!-- Use refined fonts for a premium look -->
+    <!-- Refined fonts for a premium look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
         /* Reset and Base Styles */
         * {
@@ -17,7 +21,8 @@
         }
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #0f172a;
+            /* Deep TT table blue/slate background */
+            background-color: #0b1120; 
             color: #ffffff;
             line-height: 1.6;
             overflow-x: hidden;
@@ -26,6 +31,53 @@
         }
         body.loaded {
             opacity: 1;
+        }
+
+        /* 🏓 1. Rolling Ping Pong Ball Scroll Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background-color: #ffffff; /* White table edge */
+            z-index: 9999;
+            transition: width 0.1s ease;
+            box-shadow: 0 2px 10px rgba(255,255,255,0.3);
+        }
+        #scroll-progress::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -6px; /* Center the ball on the line */
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(circle at 30% 30%, #ffc04d, #ff8c00); /* 3D Orange TT Ball */
+            border-radius: 50%;
+            box-shadow: -2px 2px 4px rgba(0,0,0,0.5);
+            transform: translateX(50%);
+        }
+
+        /* 🏓 2. Table Tennis Net Dividers */
+        .tt-net {
+            width: 100%;
+            height: 25px;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.15),
+                rgba(255, 255, 255, 0.15) 2px,
+                transparent 2px,
+                transparent 8px
+            ),
+            repeating-linear-gradient(
+                -45deg,
+                rgba(255, 255, 255, 0.15),
+                rgba(255, 255, 255, 0.15) 2px,
+                transparent 2px,
+                transparent 8px
+            );
+            border-top: 5px solid #ffffff; /* Top white tape of the net */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
 
         /* Hero Section */
@@ -38,6 +90,7 @@
             text-align: center;
             background: linear-gradient(135deg, #10101a 0%, #161e38 100%);
             padding: 2rem;
+            position: relative;
         }
         h1 {
             font-family: 'Playfair Display', serif;
@@ -98,12 +151,11 @@
         .paddle-icon {
             font-size: 4rem;
             margin-bottom: 1rem;
-            color: #e94560;
-            animation: bounce 2s infinite ease-in-out;
+            animation: bounce 1.5s infinite cubic-bezier(0.28, 0.84, 0.42, 1);
         }
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.1); }
         }
         
         @keyframes fadeInDown {
@@ -117,8 +169,8 @@
 
         /* Photo Gallery Section */
         .gallery {
-            padding: 5rem 2rem;
-            background-color: #0f172a;
+            padding: 4rem 2rem;
+            background-color: #0b1120;
         }
         .gallery-title {
             text-align: center;
@@ -126,7 +178,7 @@
             font-size: 2.8rem;
             margin-bottom: 3rem;
             color: #ffffff;
-            border-bottom: 3px solid #c5a059;
+            border-bottom: 4px dashed #ffffff; /* Styled like the center line */
             display: inline-block;
             padding-bottom: 0.5rem;
         }
@@ -140,12 +192,13 @@
         
         .card {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
             background: #16213e;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
         }
         .card.in-view {
             opacity: 1;
@@ -153,7 +206,7 @@
         }
         .card:hover {
             transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.5);
+            box-shadow: 0 10px 20px rgba(233, 69, 96, 0.4); /* Paddle red highlight */
         }
         .card img {
             width: 100%;
@@ -162,19 +215,19 @@
             display: block;
         }
         
-        /* Racing Photo - anchored to the top so his head isn't cut off */
+        /* Racing Photo Fix */
         .card:nth-child(4) img {
             object-position: top;
         }
 
-        /* Throne Photo - Shifted down to show both his face and the throne */
+        /* Throne Photo Fix */
         .card:nth-child(6) img {
             object-position: center 25%;
         }
 
         .card p {
             font-weight: bold;
-            color: #e94560;
+            color: #e94560; /* Paddle red */
             padding: 1.2rem;
             text-align: center;
         }
@@ -182,35 +235,49 @@
             color: #c5a059;
         }
 
-        /* Switch to 2 columns for tablets and desktops */
         @media(min-width: 600px) {
             .grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         /* Message Section */
         .message-section {
-            padding: 5rem 2rem;
+            padding: 6rem 2rem;
             text-align: center;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 4rem auto;
             background-color: #161e38;
             border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             position: relative;
             z-index: 1;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            border: 2px solid #e94560;
+        }
+        .message-section.in-view {
+            opacity: 1;
+            transform: translateY(0);
         }
         .message-section::before {
             content: '';
             position: absolute;
             top: 0; left: 0;
-            width: 100%; height: 5px;
-            background: linear-gradient(to right, #e94560, #c5a059);
+            width: 100%; height: 8px;
+            background: repeating-linear-gradient(
+                90deg,
+                #ffffff,
+                #ffffff 20px,
+                #e94560 20px,
+                #e94560 40px
+            ); /* TT Paddle Edge Tape */
         }
         .message-section h2 {
             font-family: 'Playfair Display', serif;
             margin-bottom: 1.5rem;
             color: #ffffff;
+            font-size: 2.2rem;
         }
         .message-section p {
             font-size: 1.3rem;
@@ -222,9 +289,8 @@
         footer {
             text-align: center;
             padding: 3rem 2rem;
-            background-color: #10101a;
+            background-color: #0b1120;
             font-size: 1rem;
-            margin-top: -20px;
             position: relative;
             z-index: 0;
         }
@@ -236,27 +302,30 @@
 </head>
 <body onload="document.body.classList.add('loaded')">
 
+    <!-- Scroll Progress TT Ball -->
+    <div id="scroll-progress"></div>
+
     <!-- Hero Section -->
     <div class="hero">
         <div class="paddle-icon">🏓</div>
         <h1>Happy Birthday, Kiran!</h1>
         <p class="subtitle">To the undisputed Table Tennis Champion and an incredible friend.</p>
         
-        <!-- Instagram Link -->
         <a href="https://www.instagram.com/ki_ran.raj?igsh=MW55ZGk4d2Q5ZDM2bg==" target="_blank" class="insta-link">
             📸 Follow @ki_ran.raj
         </a>
 
-        <!-- Background Music Player -->
         <div class="audio-container">
             <p>🎧 Set the Vibe</p>
             <audio controls loop>
-                <!-- Linked directly to your specific WhatsApp audio file -->
                 <source src="WhatsApp Audio 2026-06-30 at 11.11.44 PM.mpeg" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
         </div>
     </div>
+
+    <!-- TT Net Divider -->
+    <div class="tt-net"></div>
 
     <!-- Gallery Section -->
     <div class="gallery">
@@ -264,32 +333,26 @@
             <h2 class="gallery-title">Legendary Moments</h2>
         </div>
         <div class="grid" id="gallery-grid">
-            <!-- Image 1 -->
             <div class="card">
                 <img src="WhatsApp Image 2026-06-30 at 10.48.12 PM.jpeg" alt="Kiran looking cool in sunglasses">
                 <p>Stylin' for the big day 😎</p>
             </div>
-            <!-- Image 2 -->
             <div class="card">
                 <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM (1).jpeg" alt="Kiran playing guitar">
                 <p>Epic Riffs, Even Bigger Rallies 🎸🏓</p>
             </div>
-            <!-- Image 3 -->
             <div class="card">
                 <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM (2).jpeg" alt="Kiran by the water">
                 <p>A well-deserved moment of calm 🌊</p>
             </div>
-            <!-- Image 4 -->
             <div class="card">
                 <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM (3).jpeg" alt="Kiran with KTM hoodie">
                 <p>Racing to the top! 🏍️</p>
             </div>
-            <!-- Image 5 -->
             <div class="card">
                 <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM.jpeg" alt="Kiran on his motorcycle">
                 <p>A true explorer 🚀</p>
             </div>
-            <!-- Image 6 -->
             <div class="card">
                 <img src="WhatsApp Image 2026-06-30 at 10.58.30 PM.jpeg" alt="Kiran on the Iron Throne">
                 <p>The true King of the Court! Long may he reign 🏓⚔️👑</p>
@@ -297,8 +360,11 @@
         </div>
     </div>
 
+    <!-- TT Net Divider -->
+    <div class="tt-net"></div>
+
     <!-- Message Section -->
-    <div class="message-section">
+    <div class="message-section" id="final-message">
         <h2>Wishing you the best year yet!</h2>
         <p>Hope your day is filled with great rallies, perfect serves, and lots of cake.</p>
         <p>Keep spinning those winners on and off the table!</p>
@@ -309,18 +375,72 @@
         <p>Made with love by Nikhil for the TT Legend</p>
     </footer>
 
-    <!-- Script for card entry reveal -->
+    <!-- Scripts -->
     <script>
+        // 1. Scroll Progress TT Ball
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('scroll-progress').style.width = scrollPercent + '%';
+        });
+
+        // 2. Intersection Observer for Cards & Ping Pong Confetti
         document.addEventListener("DOMContentLoaded", function() {
+            let confettiFired = false;
+            
             const cards = document.querySelectorAll('.card');
-            const observer = new IntersectionObserver(entries => {
+            const cardObserver = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('in-view');
                     }
                 });
-            });
-            cards.forEach(card => observer.observe(card));
+            }, { threshold: 0.1 });
+            cards.forEach(card => cardObserver.observe(card));
+
+            const messageBox = document.getElementById('final-message');
+            const messageObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        
+                        if (!confettiFired) {
+                            var duration = 3 * 1000;
+                            var animationEnd = Date.now() + duration;
+                            
+                            // 🏓 3. TT Confetti Config: Circles only, Orange/White/Red colors!
+                            var defaults = { 
+                                startVelocity: 30, 
+                                spread: 360, 
+                                ticks: 60, 
+                                zIndex: 0,
+                                shapes: ['circle'],
+                                colors: ['#ffffff', '#ff8c00', '#e94560']
+                            };
+
+                            function randomInRange(min, max) {
+                                return Math.random() * (max - min) + min;
+                            }
+
+                            var interval = setInterval(function() {
+                                var timeLeft = animationEnd - Date.now();
+
+                                if (timeLeft <= 0) {
+                                    return clearInterval(interval);
+                                }
+                                var particleCount = 50 * (timeLeft / duration);
+                                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+                            }, 250);
+                            
+                            confettiFired = true;
+                        }
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            messageObserver.observe(messageBox);
         });
     </script>
 
