@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- This meta tag is the secret to making it look perfect on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 2rem;
+        }
+        h1 {
+            font-size: 3.5rem;
+            color: #e94560; /* Ping-pong paddle red */
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a2a8d3;
+            margin-bottom: 2rem;
+        }
+        
+        /* Bouncing Table Tennis Icon */
+        .paddle-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite ease-in-out;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Photo Gallery Section */
+        .gallery {
+            padding: 4rem 2rem;
+            background-color: #1a1a2e;
+        }
+        .gallery-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr; /* 1 column for mobile by default */
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Switch to 2 columns for tablets and desktops */
+        @media(min-width: 600px) {
+            .grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .card {
+            background: #16213e;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover; /* Ensures images don't stretch weirdly */
+            display: block;
+        }
+        .card p {
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            color: #e94560;
+        }
+
+        /* Message Section */
+        .message-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .message-section p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #a2a8d3;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #0f3460;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="paddle-icon">🏓</div>
+        <h1>Happy Birthday, [Name]!</h1>
+        <p class="subtitle">To the undisputed Table Tennis Champion and an incredible friend.</p>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="gallery">
+        <h2 class="gallery-title">Legendary Moments</h2>
+        <div class="grid">
+            <!-- Image 1 -->
+            <div class="card">
+                <img src="https://via.placeholder.com/400x300/16213e/e94560?text=Pic+1+Goes+Here" alt="Memory 1">
+                <p>Smashing it! 💥</p>
+            </div>
+            <!-- Image 2 -->
+            <div class="card">
+                <img src="https://via.placeholder.com/400x300/16213e/e94560?text=Pic+2+Goes+Here" alt="Memory 2">
+                <p>Unstoppable 🏆</p>
+            </div>
+            <!-- Image 3 -->
+            <div class="card">
+                <img src="https://via.placeholder.com/400x300/16213e/e94560?text=Pic+3+Goes+Here" alt="Memory 3">
+                <p>Good Times 🎉</p>
+            </div>
+            <!-- Image 4 -->
+            <div class="card">
+                <img src="https://via.placeholder.com/400x300/16213e/e94560?text=Pic+4+Goes+Here" alt="Memory 4">
+                <p>Happy Birthday! 🎂</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Section -->
+    <div class="message-section">
+        <h2>Wishing you the best year yet!</h2>
+        <br>
+        <p>Hope your day is filled with great rallies, perfect serves, and lots of cake.</p>
+        <p>Keep spinning those winners on and off the table!</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Made with love by [Your Name] for the TT Legend</p>
+    </footer>
+
+</body>
+</html>
