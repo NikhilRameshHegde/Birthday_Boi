@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- This meta tag is the secret to making it look perfect on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <title>Happy Birthday Kiran!</title>
     <style>
         /* Reset and Base Styles */
         * {
@@ -33,7 +32,7 @@
         }
         h1 {
             font-size: 3.5rem;
-            color: #e94560; /* Ping-pong paddle red */
+            color: #e94560;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
@@ -67,7 +66,7 @@
         }
         .grid {
             display: grid;
-            grid-template-columns: 1fr; /* 1 column for mobile by default */
+            grid-template-columns: 1fr;
             gap: 1.5rem;
             max-width: 800px;
             margin: 0 auto;
@@ -76,6 +75,13 @@
         /* Switch to 2 columns for tablets and desktops */
         @media(min-width: 600px) {
             .grid { grid-template-columns: repeat(2, 1fr); }
+            /* Make the 5th item span both columns to look centered and clean */
+            .card:nth-child(5) {
+                grid-column: span 2;
+                max-width: 400px;
+                margin: 0 auto;
+                width: 100%;
+            }
         }
 
         .card {
@@ -83,11 +89,15 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
         }
         .card img {
             width: 100%;
-            height: 300px;
-            object-fit: cover; /* Ensures images don't stretch weirdly */
+            height: 350px;
+            object-fit: cover;
             display: block;
         }
         .card p {
@@ -103,6 +113,9 @@
             text-align: center;
             max-width: 600px;
             margin: 0 auto;
+        }
+        .message-section h2 {
+            margin-bottom: 1rem;
         }
         .message-section p {
             font-size: 1.2rem;
@@ -124,7 +137,7 @@
     <!-- Hero Section -->
     <div class="hero">
         <div class="paddle-icon">🏓</div>
-        <h1>Happy Birthday, [Name]!</h1>
+        <h1>Happy Birthday, Kiran!</h1>
         <p class="subtitle">To the undisputed Table Tennis Champion and an incredible friend.</p>
     </div>
 
@@ -134,23 +147,28 @@
         <div class="grid">
             <!-- Image 1 -->
             <div class="card">
-                <img src="https://via.placeholder.com/400x300/16213e/e94560?text=Pic+1+Goes+Here" alt="Memory 1">
-                <p>Smashing it! 💥</p>
+                <img src="WhatsApp Image 2026-06-30 at 10.48.12 PM.jpeg" alt="Kiran looking cool">
+                <p>Too cool for school 😎</p>
             </div>
             <!-- Image 2 -->
             <div class="card">
-                <img src="https://via.placeholder.com/400x300/16213e/e94560?text=Pic+2+Goes+Here" alt="Memory 2">
-                <p>Unstoppable 🏆</p>
+                <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM (1).jpeg" alt="Kiran playing guitar">
+                <p>Rockstar vibes 🎸</p>
             </div>
             <!-- Image 3 -->
             <div class="card">
-                <img src="https://via.placeholder.com/400x300/16213e/e94560?text=Pic+3+Goes+Here" alt="Memory 3">
-                <p>Good Times 🎉</p>
+                <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM (2).jpeg" alt="Kiran by the water">
+                <p>Chilling by the water 🌊</p>
             </div>
             <!-- Image 4 -->
             <div class="card">
-                <img src="https://via.placeholder.com/400x300/16213e/e94560?text=Pic+4+Goes+Here" alt="Memory 4">
-                <p>Happy Birthday! 🎂</p>
+                <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM (3).jpeg" alt="Kiran in KTM hoodie">
+                <p>KTM Racing! 🏍️</p>
+            </div>
+            <!-- Image 5 -->
+            <div class="card">
+                <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM.jpeg" alt="Kiran on his bike">
+                <p>Riding in style 🚀</p>
             </div>
         </div>
     </div>
@@ -158,14 +176,13 @@
     <!-- Message Section -->
     <div class="message-section">
         <h2>Wishing you the best year yet!</h2>
-        <br>
         <p>Hope your day is filled with great rallies, perfect serves, and lots of cake.</p>
         <p>Keep spinning those winners on and off the table!</p>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>Made with love by [Your Name] for the TT Legend</p>
+        <p>Made with love by Nikhil for the TT Legend</p>
     </footer>
 
 </body>
