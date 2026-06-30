@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Kiran!</title>
+    <!-- Use refined fonts for a premium look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         /* Reset and Base Styles */
         * {
@@ -12,11 +16,16 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0f172a;
             color: #ffffff;
             line-height: 1.6;
             overflow-x: hidden;
+            opacity: 0; /* Start hidden for animation */
+            transition: opacity 1s ease-in-out;
+        }
+        body.loaded {
+            opacity: 1;
         }
 
         /* Hero Section */
@@ -27,61 +36,87 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, #10101a 0%, #161e38 100%);
             padding: 2rem;
         }
         h1 {
+            font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
-            color: #e94560;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background: linear-gradient(to right, #ffffff 0%, #c5a059 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            text-shadow: none; /* Text gradient replaces shadow */
+            animation: fadeInDown 1.5s ease-out;
         }
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            font-weight: bold;
             color: #a2a8d3;
             margin-bottom: 2rem;
+            animation: fadeInUp 1.5s ease-out;
         }
         
         /* Bouncing Table Tennis Icon */
         .paddle-icon {
             font-size: 4rem;
             margin-bottom: 1rem;
+            color: #e94560;
             animation: bounce 2s infinite ease-in-out;
         }
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
         }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* Photo Gallery Section */
         .gallery {
-            padding: 4rem 2rem;
-            background-color: #1a1a2e;
+            padding: 5rem 2rem;
+            background-color: #0f172a;
         }
         .gallery-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
             color: #ffffff;
+            border-bottom: 3px solid #c5a059;
+            display: inline-block;
+            padding-bottom: 0.5rem;
         }
         .grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.5rem;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
+        /* Simple entry animation for gallery items */
+        .card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .card.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Switch to 2 columns for tablets and desktops */
         @media(min-width: 600px) {
             .grid { grid-template-columns: repeat(2, 1fr); }
-            /* Make the 5th item span both columns to look centered and clean */
-            .card:nth-child(5) {
-                grid-column: span 2;
-                max-width: 400px;
-                margin: 0 auto;
-                width: 100%;
-            }
         }
 
         .card {
@@ -89,50 +124,77 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.5); /* Golden highlight on hover */
         }
         .card img {
             width: 100%;
-            height: 350px;
+            height: 380px;
             object-fit: cover;
             display: block;
         }
         .card p {
-            padding: 1rem;
-            text-align: center;
             font-weight: bold;
             color: #e94560;
+            padding: 1.2rem;
+            text-align: center;
+        }
+        /* Style captions linked to 'king' photo to feature gold */
+        .card:nth-child(6) p {
+            color: #c5a059;
         }
 
         /* Message Section */
         .message-section {
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             text-align: center;
             max-width: 600px;
             margin: 0 auto;
+            background-color: #161e38;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .message-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(to right, #e94560, #c5a059);
         }
         .message-section h2 {
-            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
         }
         .message-section p {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
             color: #a2a8d3;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 2rem;
-            background-color: #0f3460;
-            font-size: 0.9rem;
+            padding: 3rem 2rem;
+            background-color: #10101a;
+            font-size: 1rem;
+            margin-top: -20px; /* Overlap slightly for seamless transition */
+            position: relative;
+            z-index: 0;
         }
+        footer p {
+            color: #a2a8d3;
+        }
+        
     </style>
 </head>
-<body>
+<body onload="document.body.classList.add('loaded')">
 
     <!-- Hero Section -->
     <div class="hero">
@@ -143,32 +205,39 @@
 
     <!-- Gallery Section -->
     <div class="gallery">
-        <h2 class="gallery-title">Legendary Moments</h2>
-        <div class="grid">
+        <div class="title-container" style="text-align: center;">
+            <h2 class="gallery-title">Legendary Moments</h2>
+        </div>
+        <div class="grid" id="gallery-grid">
             <!-- Image 1 -->
             <div class="card">
-                <img src="WhatsApp Image 2026-06-30 at 10.48.12 PM.jpeg" alt="Kiran looking cool">
-                <p>Too cool for school 😎</p>
+                <img src="WhatsApp Image 2026-06-30 at 10.48.12 PM.jpeg" alt="Kiran looking cool in sunglasses">
+                <p>Stylin' for the big day 😎</p>
             </div>
             <!-- Image 2 -->
             <div class="card">
                 <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM (1).jpeg" alt="Kiran playing guitar">
-                <p>Rockstar vibes 🎸</p>
+                <p>Epic Riffs, Even Bigger Rallies 🎸🏓</p>
             </div>
             <!-- Image 3 -->
             <div class="card">
                 <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM (2).jpeg" alt="Kiran by the water">
-                <p>Chilling by the water 🌊</p>
+                <p>A well-deserved moment of calm 🌊</p>
             </div>
             <!-- Image 4 -->
             <div class="card">
-                <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM (3).jpeg" alt="Kiran in KTM hoodie">
-                <p>KTM Racing! 🏍️</p>
+                <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM (3).jpeg" alt="Kiran with KTM hoodie">
+                <p>Racing to the top! 🏍️</p>
             </div>
             <!-- Image 5 -->
             <div class="card">
-                <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM.jpeg" alt="Kiran on his bike">
-                <p>Riding in style 🚀</p>
+                <img src="WhatsApp Image 2026-06-30 at 10.48.13 PM.jpeg" alt="Kiran on his motorcycle">
+                <p>A true explorer 🚀</p>
+            </div>
+            <!-- Image 6 - The Iron Throne - the new addition -->
+            <div class="card">
+                <img src="WhatsApp Image 2026-06-30 at 10.58.30 PM.jpeg" alt="Kiran on the Iron Throne">
+                <p>The true King of the Court! Long may he reign 🏓⚔️👑</p>
             </div>
         </div>
     </div>
@@ -184,6 +253,21 @@
     <footer>
         <p>Made with love by Nikhil for the TT Legend</p>
     </footer>
+
+    <!-- A tiny script for card entry reveal -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cards = document.querySelectorAll('.card');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            });
+            cards.forEach(card => observer.observe(card));
+        });
+    </script>
 
 </body>
 </html>
